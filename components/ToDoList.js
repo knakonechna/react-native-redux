@@ -1,21 +1,21 @@
 import React, { useEffect  } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { connect, useSelector } from "react-redux";
-import { fetchTasks } from "../actions/getTasksList";
+import { fetchTodos } from "../actions/getTodosList";
 
 import ToDo from "./ToDo";
 
-const ToDoList = ({ fetchTasks }) => {
-  const { tasks, isLoading } = useSelector(state => state.fetchToDos);
+const ToDoList = ({ fetchTodos }) => {
+  const { todos, isLoading } = useSelector(state => state.fetchToDos);
   useEffect(() => {
-    fetchTasks();
+    fetchTodos();
   }, []);
-  console.log(tasks);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={tasks}
-        renderItem={({ item }) => <ToDo task={item} />}
+        data={todos}
+        renderItem={({ item }) => <ToDo todo={item} />}
         keyExtractor={item => item.id}
       />
     </View>
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { fetchTasks })(ToDoList);
+export default connect(null, { fetchTodos })(ToDoList);

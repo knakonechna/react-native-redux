@@ -1,15 +1,15 @@
-import { GET_TASKS, GET_TASKS_SUCCESSED, GET_TASKS_FAILED } from "../types";
+import { GET_TODOS, GET_TODOS_SUCCESSED, GET_TODOS_FAILED } from "../types";
 import { combineReducers } from "redux";
 
-const initialState = { tasks: [], isLoading: false };
+const initialState = { todos: [], isLoading: false };
 
 const fetchToDos = (state = initialState, action) => {
   switch (action.type) {
-    case GET_TASKS:
+    case GET_TODOS:
       return Object.assign(state, { isLoading: true });
-    case GET_TASKS_SUCCESSED:
-      return Object.assign(state, { tasks: action.payload, isLoading: false });
-    case GET_TASKS_FAILED:
+    case GET_TODOS_SUCCESSED:
+      return Object.assign(state, { todos: action.payload, isLoading: false });
+    case GET_TODOS_FAILED:
       return state;
     default:
       return state;

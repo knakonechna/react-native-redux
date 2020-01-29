@@ -8,7 +8,7 @@ import axiosMiddleware from "redux-axios-middleware";
 
 import reducer from "./reducer";
 
-import TextInput from "./components/TextInput";
+import TodosCreator from "./components/TodosCreator";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
 
@@ -24,7 +24,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <TextInput />
+          <TodosCreator />
           <ToDoList />
           <Footer />
         </View>

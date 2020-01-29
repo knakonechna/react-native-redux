@@ -3,26 +3,26 @@ import { View, StyleSheet } from "react-native";
 import CheckBox from "react-native-checkbox";
 import axios from "axios";
 
-const ToDo = ({ task }) => {
-  const [checked, setChecked] = useState(task.checked);
+const ToDo = ({ todo }) => {
+  const [checked, setChecked] = useState(todo.checked);
 
-  const checkTask = task => {
+  const checkTodo = todo => {
     axios
-      .put(`http://localhost:3000/tasks/${task.id}`, {
-        ...task,
+      .put(`http://localhost:3000/tasks/${todo.id}`, {
+        ...todo,
         checked: !checked
       })
-      .then(val => setChecked(val.data.checked));
+      .then(data => setChecked(data.data.checked));
   };
 
   return (
     <View style={styles.item}>
       <CheckBox
-        label={task.context}
+        label={todo.context}
         labelLines={2}
         style={styles.checkBoxItem}
         checked={checked}
-        onChange={() => checkTask(task)}
+        onChange={() => checkTodo(todo)}
       />
     </View>
   );

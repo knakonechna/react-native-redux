@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, TextInput, Text, StyleSheet } from "react-native";
-import { fetchTasks } from '../actions/getTasksList';
+import { fetchTodos } from '../actions/getTodosList';
 import axios from "axios";
 import {connect} from "react-redux";
 
-const taskForm = ({fetchTasks}) => {
+const TodosCreator = ({fetchTodos}) => {
   const [value, onChangeText] = useState("");
 
   const createNewTask = () => {
@@ -13,7 +13,7 @@ const taskForm = ({fetchTasks}) => {
 		  "checked": false
 	  }).then(() => {
 	    onChangeText('');
-      fetchTasks()
+      fetchTodos()
     });
   };
 
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { fetchTasks })(taskForm);
+export default connect(null, { fetchTodos })(TodosCreator);
