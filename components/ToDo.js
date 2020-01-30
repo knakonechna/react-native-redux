@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import CheckBox from "react-native-checkbox";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { checkTodo } from "../actions/checkTodo";
+import { deleteTodo } from "../actions/deleteTodos";
 
 const ToDo = ({ todo }) => {
   const [checked, setChecked] = useState(todo.checked);
+  const dispatch = useDispatch();
 
-  const checkTodo = todo => {
-    axios
-      .put(`http://localhost:3000/tasks/${todo.id}`, {
-        ...todo,
-        checked: !checked
-      })
-      .then(data => setChecked(data.data.checked));
+  const toggleCheck = todo => {
+    dispatch(checkTodo(todo));
+    setChecked(!checked);
+  };
+
+  const removeTodo = () => {
+    dispatch(deleteTodo(todo.id));
   };
 
   return (
@@ -22,8 +25,11 @@ const ToDo = ({ todo }) => {
         labelLines={2}
         style={styles.checkBoxItem}
         checked={checked}
-        onChange={() => checkTodo(todo)}
+        onChange={() => toggleCheck(todo)}
       />
+      <TouchableOpacity onPress={removeTodo}>
+        <Text style={styles.deleteButton}>remove</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -31,7 +37,14 @@ const ToDo = ({ todo }) => {
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    paddingTop: 20
+    paddingTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  deleteButton: {
+    fontSize: 14,
+    color: "red"
   },
   checkBoxItem: {
     width: 30,

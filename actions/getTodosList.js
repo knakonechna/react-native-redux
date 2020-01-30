@@ -21,7 +21,9 @@ export function fetchTodos() {
   return function action(dispatch) {
     dispatch(requestTodos());
     return axios(`${apiUrl}/tasks`).then(
-      ({ data }) => dispatch(fetchTodosSuccessed(data)),
+      ({ data }) => {
+        dispatch(fetchTodosSuccessed(data))
+      },
       error => dispatch(fetchTodosError(error))
     );
   };

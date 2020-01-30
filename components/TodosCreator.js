@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { View, TextInput, Text, StyleSheet } from "react-native";
-import { fetchTodos } from '../actions/getTodosList';
-import axios from "axios";
-import {connect} from "react-redux";
+import { postNewTodo } from '../actions/postNewTodo';
+import {useDispatch} from "react-redux";
 
-const TodosCreator = ({fetchTodos}) => {
+const TodosCreator = () => {
   const [value, onChangeText] = useState("");
+  const dispatch = useDispatch();
 
   const createNewTask = () => {
-	  axios.post('http://localhost:3000/tasks', {
-		  "context": value,
-		  "checked": false
-	  }).then(() => {
-	    onChangeText('');
-      fetchTodos()
-    });
+    if (value.length > 3) {
+      dispatch(postNewTodo(value));
+      onChangeText('');
+    }
   };
 
   return (
@@ -49,4 +46,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { fetchTodos })(TodosCreator);
+export default TodosCreator;
