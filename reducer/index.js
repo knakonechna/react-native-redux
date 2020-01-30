@@ -6,9 +6,9 @@ const initialState = { todos: [], isLoading: false };
 const fetchToDos = (state = initialState, action) => {
   switch (action.type) {
     case GET_TODOS:
-      return Object.assign(state, { isLoading: true });
+      return Object.assign(state, { isLoading: false });
     case GET_TODOS_SUCCESSED:
-      return Object.assign(state, { todos: action.payload, isLoading: false });
+      return Object.assign(state, { todos: action.payload, isLoading: true });
     case GET_TODOS_FAILED:
       return state;
     default:
