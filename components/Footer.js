@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { filterTodoBy } from "../actions/filterTodo";
@@ -6,9 +6,11 @@ import { filterTodoBy } from "../actions/filterTodo";
 const filter = ["All", "Active", "Completed"];
 
 const Footer = () => {
+  const [activeEl, setActiveEl] = useState('All');
 	const dispatch = useDispatch();
 
 	const filterTodos = (el) => {
+    setActiveEl(el);
 	  const condition = el.toLowerCase();
 
     dispatch(filterTodoBy(condition))
@@ -21,7 +23,7 @@ const Footer = () => {
       <View style={styles.filterItem}>
         {filter.map(el => (
           <TouchableOpacity key={el} onPress={() => filterTodos(el)}>
-            <Text style={styles.items}>{el}</Text>
+            <Text style={[styles.items, activeEl === el && styles.activeElement]}>{el}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -49,7 +51,18 @@ const styles = StyleSheet.create({
   },
   items: {
     fontSize: 18,
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    fontWeight: "bold",
+  },
+  activeElement: {
+    shadowColor: "red",
+    shadowOffset: {
+      width: 2,
+      height: 5,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 9,
   }
 });
 

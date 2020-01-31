@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Text, Image } from "react-native";
 
 import ToDo from "./ToDo";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,23 +15,36 @@ const ToDoList = () => {
   );
 
   const dispatch = useDispatch();
+  const condition = el => data[el].checked;
+  const isActive = filterBy === "active";
 
   React.useEffect(() => {
     dispatch(fetchTodos());
   }, []);
 
   const filteredTodo = () => {
-    if (filterBy === "active") {
-      return data.filter(el => !el.checked);
-    } else if (filterBy === "completed") {
-      return data.filter(el => el.checked);
+    let result;
+    if (filterBy === "all") {
+      result = Object.keys(data);
     } else {
-      return data;
+      result = Object.keys(data).filter(el =>
+        isActive ? !condition(el) : condition(el)
+      );
     }
+    return result.map(i => data[i]);
   };
 
   return (
     <View style={styles.container}>
+      {filteredTodo().length === 0 && (
+        <View style={styles.noTask}>
+          <Image
+            style={{width: 150, height: 100}}
+            source={{uri: 'https://media.giphy.com/media/l4FGwMO7epx7FEH8Q/giphy.gif'}}
+          />
+          <Text style={styles.noTaskText}>No tasks</Text>
+        </View>
+      )}
       <FlatList
         data={filteredTodo()}
         renderItem={({ item }) => <ToDo todo={item} />}
@@ -43,9 +56,19 @@ const ToDoList = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
+    flex: 9,
     width: "100%",
     maxWidth: "80%"
+  },
+  noTask: {
+    flex: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noTaskText: {
+    textTransform: 'uppercase',
+    fontSize: 30,
+    fontWeight: 'bold'
   }
 });
 

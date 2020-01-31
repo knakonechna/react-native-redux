@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF",
-    paddingTop: 100
+    backgroundColor: "#d4deda",
+    paddingTop: 50
   },
   welcome: {
     fontSize: 20,
