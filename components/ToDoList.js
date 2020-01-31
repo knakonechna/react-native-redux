@@ -6,17 +6,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTodos } from "../actions/getTodosList";
 
 const ToDoList = () => {
-  const { data } = useSelector(state => state.fetchToDos);
+  const { data, filterBy } = useSelector(
+    state => ({
+      data: state.fetchToDos.data,
+      filterBy: state.fetchToDos.filterBy
+    }),
+    filterBy
+  );
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(fetchTodos());
   }, []);
 
+  const filteredTodo = () => {
+    if (filterBy === "active") {
+      return data.filter(el => !el.checked);
+    } else if (filterBy === "completed") {
+      return data.filter(el => el.checked);
+    } else {
+      return data;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={filteredTodo()}
         renderItem={({ item }) => <ToDo todo={item} />}
         keyExtractor={item => item.id}
       />

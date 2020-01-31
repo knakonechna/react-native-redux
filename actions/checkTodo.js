@@ -26,10 +26,7 @@ export function checkTodo(todo) {
         checked: !todo.checked
       })
       .then(
-        () => {
-        	console.log('here')
-        	dispatch(checkTodoSuccessed())
-        },
+        () => dispatch(checkTodoSuccessed()),
         e => dispatch(checkTodoFailed(e))
       )
       .then(() => dispatch(fetchTodos()));
