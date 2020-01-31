@@ -2,7 +2,7 @@
   "tasks": [
     {
       "context": "Sadaadssad",
-      "checked": false,
+      "checked": true,
       "id": 1
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "context": "Sddsf",
-      "checked": true,
+      "checked": false,
       "id": 4
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "context": "Sdsfsfd",
-      "checked": false,
+      "checked": true,
       "id": 6
     }
   ]

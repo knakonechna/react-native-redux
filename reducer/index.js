@@ -8,11 +8,10 @@ const fetchToDos = (state = initialState, action) => {
     case GET_TODOS:
       return Object.assign(state, { isLoading: false });
     case GET_TODOS_SUCCESSED:
-      return {
+      return Object.assign(state, {
         data: action.payload,
         isLoading: true,
-        filterBy: 'all'
-      };
+      });
     case GET_TODOS_FAILED:
       return Object.assign(state, { isLoading: false, error: 'Oops' });
     case FILTER_TODO:
