@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { filterTodoBy } from "../actions/filterTodo";
 import { filterKey } from "../constants";
 
-const Footer = ({ data }) => {
-  const [activeEl, setActiveEl] = useState(filterKey[0].key);
-
+const Footer = ({ data, filterBy }) => {
   const dispatch = useDispatch();
 
   const filterTodos = el => {
-    setActiveEl(el);
     dispatch(filterTodoBy(el));
   };
 
@@ -23,7 +20,7 @@ const Footer = ({ data }) => {
             <View
               style={[
                 styles.filterTextWrap,
-                activeEl === el.key && styles.activeElement
+                filterBy === el.key && styles.activeElement
               ]}
             >
               <Text style={styles.items}>{el.name}</Text>

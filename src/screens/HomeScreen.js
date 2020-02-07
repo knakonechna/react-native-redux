@@ -56,7 +56,7 @@ export const HomeScreen = () => {
     <View style={styles.container}>
       <TodosCreator />
       <ToDoList data={filteredArray.todos} />
-      <Footer data={improveData()} />
+      <Footer data={improveData()} filterBy={filterBy} />
     </View>
   );
 };

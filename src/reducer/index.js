@@ -17,7 +17,8 @@ const fetchToDos = (state = initialState, action) => {
     case GET_TODOS_SUCCESSED:
       return Object.assign(state, {
         data: action.payload,
-        isLoading: true
+        isLoading: true,
+        filterBy: filterKey[0].key
       });
     case GET_TODOS_FAILED:
       return Object.assign(state, { isLoading: false, error: "Oops" });
