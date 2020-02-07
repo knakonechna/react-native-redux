@@ -1,3 +1,14 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "context": "Task 1",
+      "id": 1,
+      "checked": true
+    },
+    {
+      "context": "Task 2",
+      "checked": false,
+      "id": 2
+    }
+  ]
 }

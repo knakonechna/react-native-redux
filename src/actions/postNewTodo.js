@@ -1,18 +1,19 @@
-import { POST_TODO, POST_TODO_SUCCESSED, POST_TODO_FAILED } from "../types";
 import axios from "axios";
 import { fetchTodos } from "./getTodosList";
+import { BASE_URL } from "../constants";
 
-const apiUrl = "http://localhost:3000";
-
+export const POST_TODO = 'POST_TODO';
 export const requestNewTodo = () => ({
   type: POST_TODO
 });
 
+export const POST_TODO_SUCCESSED = 'POST_TODO_SUCCESSED';
 export const postNewTodoSuccessed = data => ({
   type: POST_TODO_SUCCESSED,
   payload: data
 });
 
+export const POST_TODO_FAILED = 'POST_TODO_FAILED';
 export const postNewTodoError = error => ({
   type: POST_TODO_FAILED,
   error: error
@@ -22,11 +23,11 @@ export function postNewTodo(value) {
   return function action(dispatch) {
     dispatch(requestNewTodo());
     return axios
-      .post(`${apiUrl}/tasks`, {
+      .post(`${BASE_URL}/tasks`, {
         context: value,
         checked: false
       })
-      .then(({data}) => {
+      .then(({ data }) => {
         dispatch(postNewTodoSuccessed(data), error =>
           dispatch(postNewTodoError(error))
         );

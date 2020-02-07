@@ -2,41 +2,11 @@ import React from "react";
 import { View, FlatList, StyleSheet, Text, Image } from "react-native";
 
 import ToDo from "./ToDo";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchTodos } from "../actions/getTodosList";
 
-const ToDoList = () => {
-  const { data, filterBy } = useSelector(
-    state => ({
-      data: state.fetchToDos.data,
-      filterBy: state.fetchToDos.filterBy
-    }),
-    filterBy
-  );
-
-  const dispatch = useDispatch();
-  const condition = el => data[el].checked;
-  const isActive = filterBy === "active";
-
-  React.useEffect(() => {
-    dispatch(fetchTodos());
-  }, []);
-
-  const filteredTodo = () => {
-    let result;
-    if (filterBy === "all") {
-      result = Object.keys(data);
-    } else {
-      result = Object.keys(data).filter(el =>
-        isActive ? !condition(el) : condition(el)
-      );
-    }
-    return result.map(i => data[i]);
-  };
-
+const ToDoList = ({ data }) => {
   return (
     <View style={styles.container}>
-      {filteredTodo().length === 0 && (
+      {data.length === 0 && (
         <View style={styles.noTask}>
           <Image
             style={{width: 150, height: 100}}
@@ -46,7 +16,7 @@ const ToDoList = () => {
         </View>
       )}
       <FlatList
-        data={filteredTodo()}
+        data={data}
         renderItem={({ item }) => <ToDo todo={item} />}
         keyExtractor={item => item.id}
       />
