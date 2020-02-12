@@ -11,7 +11,7 @@ export const GET_TODOS_SUCCESSED = "GET_TODOS_SUCCESSED";
 export const fetchTodosSuccessed = (data, total) => ({
   type: GET_TODOS_SUCCESSED,
   payload: data,
-  total: total.pages
+  pages: total
 });
 
 export const GET_TODOS_FAILED = "GET_TODOS_FAILED";
@@ -25,7 +25,12 @@ export function fetchTodos() {
     dispatch(requestTodos());
     return axios(`${BASE_URL}/tasks`).then(
       ({ data }) => {
-        dispatch(fetchTodosSuccessed(toObject(data.tasksArray), data.total));
+        axios(`${BASE_URL}/total`).then(total => {
+          const {
+            data: { pages }
+          } = total;
+          dispatch(fetchTodosSuccessed(toObject(data), pages));
+        });
       },
       error => dispatch(fetchTodosError(error))
     );

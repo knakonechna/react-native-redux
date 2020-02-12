@@ -1,8 +1,6 @@
 {
-  "tasks": {
-    "tasksArray": [],
-    "total": {
-      "pages": 1
-    }
+  "tasks": [],
+  "total": {
+    "pages": 1
   }
 }

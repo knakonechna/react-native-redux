@@ -1,11 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
-import { HomeScreen } from "../screens/HomeScreen";
+import { ContentScreen } from "../screens/ContentScreen";
 
 const AppNavigator = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    NewPage: HomeScreen
+    Content: ContentScreen,
   },
   {
     defaultNavigationOptions: {

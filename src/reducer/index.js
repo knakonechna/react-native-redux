@@ -24,7 +24,7 @@ const fetchToDos = (state = initialState, action) => {
         data: action.payload,
         isLoading: true,
         filterBy: filterKey[0].key,
-        pages: action.total
+        pages: action.pages,
       });
     case GET_TODOS_FAILED:
       return Object.assign(state, { isLoading: false, error: "Oops" });

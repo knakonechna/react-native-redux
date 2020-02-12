@@ -25,8 +25,10 @@ export function addPages(num, navigation) {
     return axios.post(`${BASE_URL}/total`, { pages: num }).then(
 	    ({ data }) => {
 	    	dispatch(addPageSuccessed(data));
+		    navigation.navigate('Content', { pageId: data.pages });
 	    },
 	    e => dispatch(addPageError(e))
-    ).then(() => navigation.navigate('NewPage', { pageId: num }));
+    );
   };
 }
+
