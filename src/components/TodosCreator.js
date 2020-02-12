@@ -5,13 +5,13 @@ import { postNewTodo } from "../actions/postNewTodo";
 import { useDispatch } from "react-redux";
 import CustomIcon from "./Icon";
 
-const TodosCreator = () => {
+const TodosCreator = ({ pageId }) => {
   const [value, onChangeText] = useState("");
   const dispatch = useDispatch();
 
   const createNewTask = () => {
     if (value.length > 3) {
-      dispatch(postNewTodo(value));
+      dispatch(postNewTodo(value, pageId));
       onChangeText("");
     }
   };
@@ -36,7 +36,7 @@ const TodosCreator = () => {
           placeholder={"Write your task"}
           blurOnSubmit
           onBlur={createNewTask}
-          placeholderTextColor={'#000'}
+          placeholderTextColor={"#000"}
         />
         <View style={styles.icon}>
           <CustomIcon iconName="plane" trigger={createNewTask} />
