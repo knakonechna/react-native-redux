@@ -1,19 +1,8 @@
 {
-  "tasks": [
-    {
-      "context": "Task 1",
-      "id": 1,
-      "checked": true
-    },
-    {
-      "context": "Task 2",
-      "checked": false,
-      "id": 2
-    },
-    {
-      "context": "Dsasd",
-      "checked": false,
-      "id": 3
+  "tasks": {
+    "tasksArray": [],
+    "total": {
+      "pages": 1
     }
-  ]
+  }
 }

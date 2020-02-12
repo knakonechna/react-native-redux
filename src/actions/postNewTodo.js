@@ -19,12 +19,13 @@ export const postNewTodoError = error => ({
   error: error
 });
 
-export function postNewTodo(value) {
+export function postNewTodo(value, pageId) {
   return function action(dispatch) {
     dispatch(requestNewTodo());
     return axios
       .post(`${BASE_URL}/tasks`, {
         context: value,
+        pageId: pageId,
         checked: false
       })
       .then(({ data }) => {

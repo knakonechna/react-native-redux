@@ -1,51 +1,35 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import fetchTodos from "../hooks/fetchTodos";
+import { addPages } from "../actions/addNewPage";
 
+import CustomIcon from "../components/Icon";
 import TodosCreator from "../components/TodosCreator";
 import ToDoList from "../components/ToDoList";
 import Footer from "../components/Footer";
-import { filterKey } from "../constants";
+import { filterKey, filtered } from "../constants";
 
-import { fetchTodos } from "../actions/getTodosList";
-
-export const HomeScreen = () => {
-  const { data, filterBy } = useSelector(
-    state => ({
-      data: state.fetchToDos.data,
-      filterBy: state.fetchToDos.filterBy
+export const HomeScreen = props => {
+  const { data, filterBy, pages } = useSelector(
+    ({ fetchToDos }) => ({
+      data: fetchToDos.data,
+      filterBy: fetchToDos.filterBy,
+      pages: fetchToDos.pages,
+      isLoading: fetchToDos.isLoading
     }),
     filterBy
   );
-
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(fetchTodos());
-  }, []);
-
-  const filtered = key => {
-    let result = [];
-
-    if (key === "active") {
-      result = Object.keys(data).filter(item => !data[item].checked);
-    } else if (key === "completed") {
-      result = Object.keys(data).filter(item => data[item].checked);
-    } else {
-      result = Object.keys(data);
-    }
-
-    return {
-      todos: result.map(i => data[i]),
-      count: result.length
-    };
-  };
+  const { navigation } = props;
+  const pageId = navigation.state.params ? navigation.state.params.pageId : 1;
+  fetchTodos();
 
   const improveData = () => {
     const filteredData = {};
 
     filterKey.forEach(el => {
-      filteredData[el.key] = filtered(el.key);
+      filteredData[el.key] = filtered(data, el.key, pageId);
     });
 
     return filteredData;
@@ -54,7 +38,21 @@ export const HomeScreen = () => {
   const filteredArray = improveData()[filterBy];
   return (
     <View style={styles.container}>
-      <TodosCreator />
+      <TodosCreator pageId={pageId} />
+      <View style={styles.pageCreatorWrap}>
+        <CustomIcon
+          iconName="plus"
+          iconSize={20}
+          text="add new page"
+          textStyle={{
+            fontSize: 14,
+            textTransform: "uppercase",
+            marginLeft: 10,
+            fontWeight: "bold"
+          }}
+          trigger={() => dispatch(addPages(pages + 1, navigation))}
+        />
+      </View>
       <ToDoList data={filteredArray.todos} />
       <Footer data={improveData()} filterBy={filterBy} />
     </View>
@@ -68,5 +66,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#d4deda",
     paddingTop: 50
+  },
+  pageCreatorWrap: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: "100%",
+    maxWidth: "80%"
   }
 });

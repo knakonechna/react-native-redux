@@ -9,6 +9,25 @@ export const filterKey = filter.map(item => ({
 
 export const toObject = (arr) => {
 	let rv = {};
-	for (let i = 0; i < arr.length; ++i) rv[arr[i].id] = arr[i];
+	for (let i = 0; i < arr.length; ++i) {
+		rv[arr[i].id] = arr[i];
+	}
 	return rv;
+};
+
+export const filtered = (data, key, pageId) => {
+  let result = [];
+
+  if (key === "active") {
+    result = Object.keys(data).filter(item => !data[item].checked);
+  } else if (key === "completed") {
+    result = Object.keys(data).filter(item => data[item].checked);
+  } else {
+    result = Object.keys(data);
+  }
+	const pageData = result.map(i => data[i]).filter(el => el.pageId === pageId);
+	return {
+    todos: pageData,
+    count: pageData.length
+  };
 };
