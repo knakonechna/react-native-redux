@@ -24,7 +24,9 @@ export function deleteTodo(id) {
     return axios
       .delete(`${BASE_URL}/tasks/${id}`)
       .then(
-        () => dispatch(deleteRequestSuccessed()),
+        () => {
+          dispatch(deleteRequestSuccessed())
+        },
         e => {
           dispatch(deleteRequestFailed(e));
         }

@@ -19,13 +19,13 @@ export const addPageError = error => ({
 });
 
 
-export function addPages(num, navigation) {
+export function addPages(id, num, navigation, pageIds) {
   return function action(dispatch) {
   	dispatch(addPageRequest());
-    return axios.post(`${BASE_URL}/total`, { pages: num }).then(
+    return axios.post(`${BASE_URL}/total`, { pages: num, pageIds: [...pageIds, id] }).then(
 	    ({ data }) => {
 	    	dispatch(addPageSuccessed(data));
-		    navigation.navigate('Content', { pageId: data.pages });
+	    	navigation.navigate('Content', {pageId: id, index: num - 1});
 	    },
 	    e => dispatch(addPageError(e))
     );

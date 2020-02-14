@@ -12,7 +12,8 @@ const initialState = {
   data: [],
   isLoading: false,
   filterBy: filterKey[0].key,
-  pages: 1
+  pages: 1,
+  pageIds: []
 };
 
 const fetchToDos = (state = initialState, action) => {
@@ -24,7 +25,8 @@ const fetchToDos = (state = initialState, action) => {
         data: action.payload,
         isLoading: true,
         filterBy: filterKey[0].key,
-        pages: action.pages,
+        pages: action.pageIds.length,
+        pageIds: action.pageIds,
       });
     case GET_TODOS_FAILED:
       return Object.assign(state, { isLoading: false, error: "Oops" });

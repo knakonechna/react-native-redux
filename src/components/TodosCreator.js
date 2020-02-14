@@ -10,7 +10,7 @@ const TodosCreator = ({ pageId }) => {
   const dispatch = useDispatch();
 
   const createNewTask = () => {
-    if (value.length > 3) {
+    if (value.length > 2) {
       dispatch(postNewTodo(value, pageId));
       onChangeText("");
     }

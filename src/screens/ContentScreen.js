@@ -7,26 +7,35 @@ import Navigation from "../components/Navigation";
 import TodosCreator from "../components/TodosCreator";
 import ToDoList from "../components/ToDoList";
 import Footer from "../components/Footer";
-import { filterKey, filtered } from "../constants";
+import { filterKey, filtered, createUniqId } from "../constants";
 
 export const ContentScreen = props => {
-  const { data, filterBy, pages } = useSelector(
+  const { data, filterBy, pages, pageIds, isLoading } = useSelector(
     ({ fetchToDos }) => ({
       data: fetchToDos.data,
       filterBy: fetchToDos.filterBy,
       pages: fetchToDos.pages,
+      pageIds: fetchToDos.pageIds,
       isLoading: fetchToDos.isLoading
     }),
     filterBy
   );
 
   const { navigation } = props;
-  const pageId = navigation.state.params ? navigation.state.params.pageId : 1;
+  const {
+    state: { params }
+  } = navigation;
+
+  let ids = pageIds;
+  let currIndex = params ? params.index : 0;
+  let pageId = isLoading && ids[currIndex];
+  if (isLoading && ids.length === 0 && !pageId) {
+    ids.push(pageId);
+  }
   fetchTodos();
 
   const improveData = () => {
     const filteredData = {};
-
     filterKey.forEach(el => {
       filteredData[el.key] = filtered(data, el.key, pageId);
     });
@@ -38,7 +47,14 @@ export const ContentScreen = props => {
   return (
     <View style={styles.container}>
       <TodosCreator pageId={pageId} />
-      <Navigation pages={pages} pageId={pageId} navigation={navigation} />
+      <Navigation
+        pages={pages}
+        pageId={pageId}
+        navigation={navigation}
+        pageIds={pageIds}
+        currIndex={currIndex}
+        todos={improveData()["all"].ids}
+      />
       <ToDoList data={filteredArray.todos} />
       <Footer data={improveData()} filterBy={filterBy} />
     </View>
