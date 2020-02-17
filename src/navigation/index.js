@@ -1,16 +1,11 @@
 import React from "react";
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 import { ContentScreen } from "../screens/ContentScreen";
 
-const AppNavigator = createBottomTabNavigator(
+const AppNavigator = createStackNavigator(
   {
-    Content: ContentScreen,
-  },
-  {
-    defaultNavigationOptions: {
-      tabBarVisible: false
-    }
-  }
+    Content: ContentScreen
+  },   { headerMode: 'none' }
 );
 
 export default createAppContainer(AppNavigator);
