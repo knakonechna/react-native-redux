@@ -63,7 +63,7 @@ const ItemCreator = ({
 const styles = StyleSheet.create({
   container: {
     width: "80%",
-    marginBottom: 25
+    marginBottom: 10
   },
   tickerWrapper: {
     backgroundColor: "#000",

@@ -3,12 +3,12 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
 import fetchTodos from "../hooks/fetchTodos";
 
-import Navigation from "../components/Navigation";
 import TodosCreator from "../components/ItemsCreator";
 import ItemsList from "../components/ItemsList";
 import Footer from "../components/Footer";
 import { filterKey, filtered } from "../constants";
 import Item from "../components/Item";
+import CustomIcon from "../components/Icon";
 
 export const ContentScreen = props => {
   const { tasks, filterBy } = useSelector(
@@ -25,7 +25,6 @@ export const ContentScreen = props => {
   } = navigation;
   const categoryId = params.categoryId;
   const name = params.name;
-  console.log(tasks, categoryId)
   fetchTodos();
 
   const improveData = () => {
@@ -35,6 +34,10 @@ export const ContentScreen = props => {
     });
 
     return filteredData;
+  };
+
+  const navBack = () => {
+    navigation.navigate("Categories");
   };
 
   const filteredArray = improveData()[filterBy];
@@ -48,6 +51,16 @@ export const ContentScreen = props => {
         categoryId={categoryId}
         name={name}
       />
+      <View style={styles.navigation}>
+        <CustomIcon
+          iconName="arrow-left"
+          iconSize={20}
+          text="Back to categories"
+          textStyle={styles.text}
+          trigger={navBack}
+        />
+      </View>
+
       <ItemsList
         emptyText={"no task"}
         isEmpty={filteredArray.todos.length === 0}
@@ -97,5 +110,18 @@ const styles = StyleSheet.create({
     color: "#e6c727",
     textTransform: "uppercase",
     fontWeight: "bold"
+  },
+  text: {
+    fontSize: 16,
+    textTransform: "uppercase",
+    marginLeft: 5,
+    fontWeight: "bold"
+  },
+  navigation: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    maxWidth: "80%",
+    justifyContent: "space-between"
   }
 });

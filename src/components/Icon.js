@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const CustomIcon = props => (
-  <TouchableOpacity  style={{ flexDirection: 'row'}} onPress={props.trigger}>
+  <TouchableOpacity style={{ flexDirection: "row" }} onPress={props.trigger}>
     <Text>
       <Icon
         name={props.iconName}

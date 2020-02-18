@@ -1,9 +1,9 @@
 {
   "tasks": [],
-  "total": {
-    "pages": 1,
-    "pageIds": [
-      "l6gjls0yv"
-    ]
-  }
+  "categories": [
+    {
+      "name": "Sssss",
+      "id": 1
+    }
+  ]
 }
