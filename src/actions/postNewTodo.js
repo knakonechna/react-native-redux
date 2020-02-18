@@ -1,6 +1,6 @@
 import axios from "axios";
 import { fetchTodos } from "./getTodosList";
-import { BASE_URL } from "../constants";
+import {BASE_URL, toObject} from "../constants";
 
 export const POST_TODO = 'POST_TODO';
 export const requestNewTodo = () => ({
@@ -19,20 +19,19 @@ export const postNewTodoError = error => ({
   error: error
 });
 
-export function postNewTodo(value, pageId) {
+export function postNewTodo(value, categoryId) {
   return function action(dispatch) {
     dispatch(requestNewTodo());
     return axios
       .post(`${BASE_URL}/tasks`, {
         context: value,
-        pageId: pageId,
+        categoryId: categoryId,
         checked: false
       })
       .then(({ data }) => {
-        dispatch(postNewTodoSuccessed(data), error =>
+        dispatch(postNewTodoSuccessed(toObject(data)), error =>
           dispatch(postNewTodoError(error))
         );
-      })
-      .then(() => dispatch(fetchTodos()));
+      });
   };
 }

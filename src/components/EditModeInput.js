@@ -3,6 +3,7 @@ import { TextInput, View, StyleSheet } from "react-native";
 import CustomIcon from "./Icon";
 import { useDispatch } from "react-redux";
 import { changeTodo } from "../actions/changeTodo";
+import { changeCategory } from "../actions/changeCategory";
 
 export const EditModeInput = props => {
   const [text, setText] = useState(props.inputValue);
@@ -18,6 +19,15 @@ export const EditModeInput = props => {
     props.toggleEditMode();
   };
 
+  const rewordCategory = () => {
+    const data = {
+      ...props.category,
+      name: text
+    };
+
+    dispatch(changeCategory(data));
+    props.toggleEditMode();
+  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -28,7 +38,7 @@ export const EditModeInput = props => {
         placeholderTextColor={"#000"}
       />
       <View style={styles.icon}>
-        <CustomIcon iconName="retweet" trigger={rewordTodo} />
+        <CustomIcon iconName={props.icon} trigger={props.todo ? rewordTodo :rewordCategory} />
       </View>
     </View>
   );

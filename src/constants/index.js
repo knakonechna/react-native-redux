@@ -7,17 +7,19 @@ export const filterKey = filter.map(item => ({
 	key: item.toLowerCase()
 }));
 
-
-export const createUniqId = () => Math.random().toString(36).substr(2, 9);
-export const toObject = (arr) => {
+export const toObject = (data) => {
 	let rv = {};
-	for (let i = 0; i < arr.length; ++i) {
-		rv[arr[i].id] = arr[i];
+	if (Array.isArray(data)) {
+		data.forEach(el => {
+			rv[el.id] = el;
+		});
+	} else {
+		rv[data.id] = data
 	}
 	return rv;
 };
 
-export const filtered = (data, key, pageId) => {
+export const filtered = (data, key, categoryId) => {
   let result = [];
 
   if (key === "active") {
@@ -27,7 +29,7 @@ export const filtered = (data, key, pageId) => {
   } else {
     result = Object.keys(data);
   }
-	const pageData = result.map(i => data[i]).filter(el => el.pageId === pageId);
+	const pageData = result.map(i => data[i]).filter(el => el.categoryId === categoryId);
 	return {
     todos: pageData,
 		ids: pageData.map(i=> i.id),

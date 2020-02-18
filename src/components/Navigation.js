@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CustomIcon from "./Icon";
 import { useDispatch } from "react-redux";
-import { addPages } from "../actions/addNewPage";
-import { removePages } from "../actions/removePage";
+import { addPages } from "../actions/postCategory";
+import { removePages } from "../actions/removeCategory";
 import { createUniqId } from "../constants";
 
 const Navigation = ({ pages, navigation, currIndex, pageIds, todos }) => {

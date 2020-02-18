@@ -7,7 +7,7 @@ import { deleteTodo } from "../actions/deleteTodos";
 import CustomIcon from "./Icon";
 import { EditModeInput } from "./EditModeInput";
 
-const ToDo = ({ todo }) => {
+const Item = ({ todo }) => {
   const [editMode, setMode] = useState(false);
   const dispatch = useDispatch();
 
@@ -36,6 +36,7 @@ const ToDo = ({ todo }) => {
           inputValue={todo.context}
           toggleEditMode={toggleEditMode}
           todo={todo}
+          icon="retweet"
         />
       ) : (
         <View style={styles.item}>
@@ -117,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ToDo;
+export default Item;
