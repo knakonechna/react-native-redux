@@ -12,7 +12,7 @@
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/bottom-tabs": "^5.0.0",
     "@react-navigation/material-bottom-tabs": "^5.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cross-fetch": "^3.0.4",
     "expo": "~36.0.0",
     "json-server": "^0.15.1",
